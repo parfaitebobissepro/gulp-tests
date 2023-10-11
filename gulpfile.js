@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 
 var browserSync = require('browser-sync').create();
 const sass = require('gulp-sass')(require('sass'));
+var jquery = require('gulp-jquery');
 
 var html = {
   source: 'src',
@@ -39,6 +40,13 @@ gulp.task('html', function () {
     }))
     .pipe(gulp.dest(html.target));
 });
+
+gulp.task('jquery', function () {
+	return gulp.src('./node_modules/jquery-custom/jquery.1/src')
+		.pipe(jquery())
+		.pipe(gulp.dest(js.source));
+});
+
 gulp.task('twig', function () {
   gulp.src([
       html.source + '/index.twig'
@@ -85,7 +93,7 @@ gulp.task('js', function () {
     .pipe(gulp.dest(js.target));
 });
 
-gulp.task('default', ['html', 'js', 'scss', 'css']);
+gulp.task('default', ['html',  'js', 'scss', 'css', 'jquery']);
 
 gulp.task('watch', function () {
   watchFiles();
